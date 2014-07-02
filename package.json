@@ -5,7 +5,7 @@
   "author": "TAKAHASHI Kazunari <takahashi@1syo.net>",
   "license": "MIT",
 
-  "keywords": ["hubot","hubot-scripts"],
+  "keywords": ["hubot","hubot-scripts", "airbrake"],
 
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
 
   "devDependencies": {
+    "supertest": "*",
+    "hubot": "*",
+    "hubot-mock-adapter": "*",
     "mocha": "*",
     "chai": "*",
     "sinon-chai": "*",
@@ -28,7 +31,8 @@
     "grunt-mocha-test": "~0.7.0",
     "grunt-release": "~0.6.0",
     "matchdep": "~0.1.2",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-coffeelint": "*"
   },
 
   "main": "index.coffee",
