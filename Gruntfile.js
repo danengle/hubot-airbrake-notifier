@@ -27,7 +27,10 @@ module.exports = function(grunt) {
       tasks: ['test']
     },
     coffeelint: {
-      app: ['src/*.coffee', 'test/*.coffee']
+      app: ['src/*.coffee', 'test/*.coffee'],
+      options: {
+        configFile: 'coffeelint.json'
+      }
     }
   });
 
