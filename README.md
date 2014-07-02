@@ -6,19 +6,24 @@ See [`src/airbrake-notification.coffee`](src/airbrake-notification.coffee) for f
 
 ## Installation
 
-In hubot project repo, run:
+Add **hubot-airbrake-notification** to your package.json:
 
-`npm install hubot-airbrake-notification --save`
+```json
+{
+  "dependencies": {
+    "hubot-airbrake-notification": "1syo/hubot-airbrake-notification"
+  }
+}
+```
+
+Then run command:
+
+```shell
+npm install
+```
 
 Then add **hubot-airbrake-notification** to your `external-scripts.json`:
 
 ```json
 ["hubot-airbrake-notification"]
-```
-
-## Sample Interaction
-
-```
-user1>> hubot hello
-hubot>> hello!
 ```
