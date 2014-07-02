@@ -1,19 +1,33 @@
+Robot = require("hubot/src/robot")
+
 chai = require 'chai'
 sinon = require 'sinon'
 chai.use require 'sinon-chai'
-
 expect = chai.expect
+request = require 'supertest'
+
+json = require './fixture.json'
 
 describe 'airbrake-notification', ->
-  beforeEach ->
-    @robot =
-      respond: sinon.spy()
-      hear: sinon.spy()
+  robot = null
+  beforeEach (done) ->
+    robot = new Robot null, 'mock-adapter', yes, 'hubot'
+    robot.adapter.on 'connected', ->
+      require("../src/airbrake-notification")(robot)
+      adapter = @robot.adapter
+      done()
+    robot.run()
 
-    require('../src/airbrake-notification')(@robot)
+  it 'should return 200', (done) ->
+    request(robot.router)
+      .post('/hubot/airbrake?room=general')
+      .send(json)
+      .set('Accept','application/json')
+      .expect(200)
+      .end (err, res) ->
+        throw err if err
+        done()
 
-  it 'registers a respond listener', ->
-    expect(@robot.respond).to.have.been.calledWith(/hello/)
-
-  it 'registers a hear listener', ->
-    expect(@robot.hear).to.have.been.calledWith(/orly/)
+  afterEach ->
+    robot.server.close()
+    robot.shutdown()

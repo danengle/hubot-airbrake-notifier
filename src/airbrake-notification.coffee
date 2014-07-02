@@ -2,21 +2,19 @@
 #   A hubot script that does the things
 #
 # Configuration:
-#   LIST_OF_ENV_VARS_TO_SET
-#
-# Commands:
-#   hubot hello - <what the respond trigger does>
-#   orly - <what the hear trigger does>
+#   HUBOT_AIRBRAKE_SUBDOMAIN
 #
 # Notes:
 #   <optional notes required for the script>
 #
 # Author:
-#   TAKAHASHI Kazunari[@<org>]
-
+#   TAKAHASHI Kazunari[takahashi@1syo.net]
+Postman = require "./postman"
 module.exports = (robot) ->
-  robot.respond /hello/, (msg) ->
-    msg.reply "hello!"
-
-  robot.hear /orly/, ->
-    msg.send "yarly"
+  robot.router.post "/#{robot.name}/airbrake", (req, res) ->
+    try
+      postman = Postman.create(req, robot)
+      postman.deliver()
+      res.end "[Airbrake] Sending message"
+    catch e
+      res.end "[Airbrake] #{e}"
