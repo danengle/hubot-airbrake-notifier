@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/1syo/hubot-airbrake-notification.svg?branch=master)](https://travis-ci.org/1syo/hubot-airbrake-notification)
+
 # hubot-airbrake-notification
 
 A hubot script that does the things
