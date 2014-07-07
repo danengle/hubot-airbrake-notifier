@@ -28,11 +28,15 @@
     "chai": "*",
     "sinon-chai": "*",
     "sinon": "*",
-    "grunt-mocha-test": "~0.7.0",
-    "grunt-release": "~0.6.0",
-    "matchdep": "~0.1.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-coffeelint": "*"
+    "grunt-mocha-test": "*",
+    "grunt-release": "*",
+    "matchdep": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-coffeelint": "*",
+    "mocha-lcov-reporter": "*",
+    "blanket": "*",
+    "coveralls": "*",
+    "grunt-coveralls": "*"
   },
 
   "main": "index.coffee",

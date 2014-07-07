@@ -7,5 +7,6 @@ install: npm install
 script:
   - grunt test
   - grunt coffeelint
+after_script: grunt coveralls
 notifications:
   email: false
