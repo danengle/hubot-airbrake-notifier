@@ -1,17 +1,16 @@
 # Description
 #   A Postman build and send message.
 
-querystring = require('querystring')
 HUBOT_AIRBRAKE_SUBDOMAIN = process.env.HUBOT_AIRBRAKE_SUBDOMAIN
 
 class Base
   constructor: (req, robot) ->
-    @query = querystring.parse(req._parsedUrl.query)
+    @_room = req.params.room
     @json  = req.body
     @robot = robot
 
   room: ->
-    @query.room || ""
+    @_room || ""
 
   url: ->
     "https://#{HUBOT_AIRBRAKE_SUBDOMAIN}.airbrake.io/projects/#{@json["error"]["project"]["id"]}/groups/#{@json["error"]["id"]}"
@@ -37,40 +36,40 @@ class Base
 
 class Common extends Base
   pretext: ->
-    "[Airbrake] \##{@json["error"]["id"]} New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]}"
+    "[Airbrake] New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]} (#{@json["error"]["id"]})"
 
   message: ->
     """
-    #{this.pretext()}
-    #{this.text()}
-    #{this.file()}
-    #{this.url()}
-    #{this.last_occurred_at()}
+    #{@pretext()}
+    #{@text()}
+    #{@file()}
+    #{@url()}
+    #{@last_occurred_at()}
     """
 
   deliver: ->
-    @robot.send {room: this.room()}, this.message()
+    @robot.send {room: @room()}, @message()
 
 
 class Slack extends Base
   pretext: ->
-    "[Airbrake] #{this.url()}|\##{@json["error"]["id"]} New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]}"
+    "[Airbrake] New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]} (#{@url()}|#{@json["error"]["id"]})"
 
-  message: ->
+  payload: ->
     message:
-      room: this.room()
+      room: @room()
     content:
-      pretext: this.pretext()
-      text: this.text()
+      pretext: @pretext()
+      text: @text()
       color: "danger"
       fallback: ""
       fields: [
-        {title: "File", value: this.file()}
-        {title: "Last occurred at", value: this.last_occurred_at()}
+        {title: "File", value: @file()}
+        {title: "Last occurred at", value: @last_occurred_at()}
       ]
 
   deliver: ->
-    @robot.emit 'slack-attachment', this.message()
+    @robot.emit 'slack-attachment', @payload()
 
 
 class Postman
