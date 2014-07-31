@@ -20,7 +20,7 @@ describe 'airbrake-notification', ->
 
   it 'should return 200', (done) ->
     request(robot.router)
-      .post('/hubot/airbrake?room=general')
+      .post('/hubot/airbrake/general')
       .send(json)
       .set('Accept','application/json')
       .expect(200)
