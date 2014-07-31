@@ -1,7 +1,7 @@
 {
   "name": "hubot-airbrake-notification",
-  "description": "A hubot script that does the things",
-  "version": "0.0.0",
+  "description": "A hubot script that notify to every time a new error occurs in Airbrake",
+  "version": "0.0.1",
   "author": "TAKAHASHI Kazunari <takahashi@1syo.net>",
   "license": "MIT",
 
@@ -17,7 +17,7 @@
   },
 
   "dependencies": {
-    "coffee-script": "~1.6"
+    "coffee-script": ">= 1.6"
   },
 
   "devDependencies": {

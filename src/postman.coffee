@@ -1,3 +1,6 @@
+# Description
+#   A Postman build and send message.
+
 querystring = require('querystring')
 HUBOT_AIRBRAKE_SUBDOMAIN = process.env.HUBOT_AIRBRAKE_SUBDOMAIN
 
