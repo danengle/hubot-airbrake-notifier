@@ -30,8 +30,8 @@ describe 'Postman', ->
       expect(@postman.url()).to.eq \
         "https://test.airbrake.io/projects/1055/groups/37463546"
 
-    it "#pretext", ->
-      expect(@postman.pretext()).to.eq \
+    it "#subject", ->
+      expect(@postman.subject()).to.eq \
         "[Airbrake] New alert for Airbrake: RuntimeError (37463546)"
 
     it "#text", ->
@@ -48,10 +48,10 @@ describe 'Postman', ->
     it "#message", ->
       expect(@postman.message()).to.eq """
         [Airbrake] New alert for Airbrake: RuntimeError (37463546)
-        RuntimeError: You threw an exception for testing
-        [PROJECT_ROOT]/app/controllers/pages_controller.rb:35
-        https://test.airbrake.io/projects/1055/groups/37463546
-        2012-03-21T08:37:15Z
+        » RuntimeError: You threw an exception for testing
+        » [PROJECT_ROOT]/app/controllers/pages_controller.rb:35
+        » https://test.airbrake.io/projects/1055/groups/37463546
+        » 2012-03-21T08:37:15Z
       """
 
     it "#deliver", ->
@@ -77,6 +77,7 @@ describe 'Postman', ->
       expect(@postman.payload().message["room"]).to.eq "general"
       expect(@postman.payload().content["pretext"]).to.eq @postman.pretext()
       expect(@postman.payload().content["text"]).to.eq @postman.text()
+      expect(@postman.payload().content["fallback"]).to.eq @postman.message()
       expect(@postman.payload().content["color"]).to.eq "danger"
 
     it "#deliver", ->

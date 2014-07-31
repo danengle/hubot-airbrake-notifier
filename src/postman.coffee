@@ -15,8 +15,8 @@ class Base
   url: ->
     "https://#{HUBOT_AIRBRAKE_SUBDOMAIN}.airbrake.io/projects/#{@json["error"]["project"]["id"]}/groups/#{@json["error"]["id"]}"
 
-  pretext: ->
-    ""
+  subject: ->
+    "[Airbrake] New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]} (#{@json["error"]["id"]})"
 
   text: ->
     @json["error"]["error_message"]
@@ -28,25 +28,16 @@ class Base
     @json["error"]["last_occurred_at"]
 
   message: ->
-    ""
-
-  deliver: ->
-    ""
+    """
+    #{@subject()}
+    » #{@text()}
+    » #{@file()}
+    » #{@url()}
+    » #{@last_occurred_at()}
+    """
 
 
 class Common extends Base
-  pretext: ->
-    "[Airbrake] New alert for #{@json["error"]["project"]["name"]}: #{@json["error"]["error_class"]} (#{@json["error"]["id"]})"
-
-  message: ->
-    """
-    #{@pretext()}
-    #{@text()}
-    #{@file()}
-    #{@url()}
-    #{@last_occurred_at()}
-    """
-
   deliver: ->
     @robot.send {room: @room()}, @message()
 
@@ -62,7 +53,7 @@ class Slack extends Base
       pretext: @pretext()
       text: @text()
       color: "danger"
-      fallback: ""
+      fallback: @message()
       fields: [
         {title: "File", value: @file()}
         {title: "Last occurred at", value: @last_occurred_at()}
