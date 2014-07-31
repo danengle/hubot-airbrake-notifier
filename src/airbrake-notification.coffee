@@ -2,15 +2,16 @@
 #   A hubot script that notify to every time a new error occurs in Airbrake
 #
 # Dependencies:
-#   querystring:
+#   None
 #
 # Configuration:
 #   HUBOT_AIRBRAKE_SUBDOMAIN
 #
 # Commands:
 #   None
+#
 # URLS:
-#   POST /YOUR_HUBOT_NAME/airbrake/:room
+#   POST /<hubot>/airbrake/<room>
 #
 # Notes:
 #  https://help.airbrake.io/kb/integrations/webhooks
