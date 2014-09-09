@@ -51,12 +51,12 @@ class Slack extends Base
       room: @room()
     content:
       pretext: @pretext()
-      text: @text()
+      text: ""
       color: "danger"
       fallback: @message()
       fields: [
-        {title: "File", value: @file()}
-        {title: "Last occurred at", value: @last_occurred_at()}
+        {title: @text(), value: @file()}
+        {title: "", value: @last_occurred_at()}
       ]
 
   deliver: ->
