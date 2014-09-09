@@ -1,5 +1,5 @@
 # Description
-#   A Postman build and send message.
+#   A Postman Slack class
 Base = require "./base"
 _ = require 'underscore'
 

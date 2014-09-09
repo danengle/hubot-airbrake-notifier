@@ -1,5 +1,5 @@
 # Description
-#   A Postman build and send message.
+#   A Postman base class
 HUBOT_AIRBRAKE_SUBDOMAIN = process.env.HUBOT_AIRBRAKE_SUBDOMAIN || ""
 
 class Base

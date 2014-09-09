@@ -1,6 +1,5 @@
 # Description
-#   A Postman build and send message.
-
+#   A Postman Common class
 Base = require "./base"
 class Common extends Base
   notify: ->
