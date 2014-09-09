@@ -1,5 +1,5 @@
 {
-  "name": "hubot-airbrake-notification",
+  "name": "hubot-airbrake-notifier",
   "description": "A hubot script that notify to every time a new error occurs in Airbrake",
   "version": "0.0.1",
   "author": "TAKAHASHI Kazunari <takahashi@1syo.net>",
@@ -9,11 +9,11 @@
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/1syo/hubot-airbrake-notification.git"
+    "url": "git://github.com/1syo/hubot-airbrake-notifier.git"
   },
 
   "bugs": {
-    "url": "https://github.com/1syo/hubot-airbrake-notification/issues"
+    "url": "https://github.com/1syo/hubot-airbrake-notifier/issues"
   },
 
   "dependencies": {

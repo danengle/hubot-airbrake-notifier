@@ -8,12 +8,12 @@ request = require 'supertest'
 
 json = require './fixture.json'
 
-describe 'airbrake-notification', ->
+describe 'airbrake-notifier', ->
   robot = null
   beforeEach (done) ->
     robot = new Robot null, 'mock-adapter', yes, 'hubot'
     robot.adapter.on 'connected', ->
-      require("../src/airbrake-notification")(robot)
+      require("../src/airbrake-notifier")(robot)
       adapter = @robot.adapter
       done()
     robot.run()
