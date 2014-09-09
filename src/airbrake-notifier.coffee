@@ -23,7 +23,7 @@ module.exports = (robot) ->
   robot.router.post "/#{robot.name}/airbrake/:room", (req, res) ->
     try
       postman = Postman.create(req, robot)
-      postman.deliver()
+      postman.notify()
       res.end "[Airbrake] Sending message"
     catch e
       res.end "[Airbrake] #{e}"
