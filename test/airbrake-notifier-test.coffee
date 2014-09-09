@@ -1,12 +1,11 @@
 Robot = require("hubot/src/robot")
 
 chai = require 'chai'
-sinon = require 'sinon'
-chai.use require 'sinon-chai'
 expect = chai.expect
 request = require 'supertest'
 
-json = require './fixture.json'
+valid_json = require './fixture/valid.json'
+invalid_json = require './fixture/invalid.json'
 
 describe 'airbrake-notifier', ->
   robot = null
@@ -18,13 +17,23 @@ describe 'airbrake-notifier', ->
       done()
     robot.run()
 
-  it 'should return 200', (done) ->
+  it 'should be valid', (done) ->
     request(robot.router)
       .post('/hubot/airbrake/general')
-      .send(json)
+      .send(valid_json)
       .set('Accept','application/json')
-      .expect(200)
       .end (err, res) ->
+        expect(res.text).to.eq "[Airbrake] Sending message"
+        throw err if err
+        done()
+
+  it 'should be invalid', (done) ->
+    request(robot.router)
+      .post('/hubot/airbrake/general')
+      .send(invalid_json)
+      .set('Accept','application/json')
+      .end (err, res) ->
+        expect(res.text).to.eq "[Airbrake] TypeError: Cannot read property 'project' of undefined"
         throw err if err
         done()
 
