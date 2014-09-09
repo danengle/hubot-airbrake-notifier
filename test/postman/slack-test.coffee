@@ -36,3 +36,9 @@ describe 'Slack', ->
     expect(@postman.text()).to.eq """
       Errors on http://airbrake.io:445/pages/exception_test
     """
+
+  it '#payload', ->
+    expect(@postman.payload().message.room).to.eq "general"
+    expect(@postman.payload().content.pretext).to.eq @postman.pretext()
+    expect(@postman.payload().content.fallback).to.eq @postman.notice()
+    expect(@postman.payload().content.text).to.eq @postman.text()
