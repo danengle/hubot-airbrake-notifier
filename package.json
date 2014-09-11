@@ -1,7 +1,7 @@
 {
   "name": "hubot-airbrake-notifier",
   "description": "A hubot script that notify to every time a new error occurs in Airbrake",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "TAKAHASHI Kazunari <takahashi@1syo.net>",
   "license": "MIT",
 
