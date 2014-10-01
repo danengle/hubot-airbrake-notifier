@@ -14,7 +14,7 @@ class Slack extends Base
       ""
 
   fields: ->
-    results = [{title: @error_message()}]
+    results = [{value: @text()}, {title: @error_message()}]
     results.concat(_.map @backtraces(), (backtrace) -> { value: "» #{backtrace.replace(/\[[A-Z_]+\]\//,'')}" })
 
   payload: ->
@@ -22,7 +22,7 @@ class Slack extends Base
       room: @room()
     content:
       pretext: @pretext()
-      text: @text()
+      text: ""
       color: "danger"
       fallback: @notice()
       fields: @fields()

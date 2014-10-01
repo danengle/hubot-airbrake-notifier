@@ -26,6 +26,7 @@ describe 'Slack', ->
 
   it '#fields', ->
     expect(@postman.fields()).to.eql [
+      {value: "Errors on http://airbrake.io:445/pages/exception_test"},
       {title: "RuntimeError: You threw an exception for testing"},
       {value: "» app/controllers/pages_controller.rb:35:in 'exception_tester'"},
       {value: "» app/middleware/conditional_heroku_nav.rb:19:in '_call'"},
@@ -41,4 +42,4 @@ describe 'Slack', ->
     expect(@postman.payload().message.room).to.eq "general"
     expect(@postman.payload().content.pretext).to.eq @postman.pretext()
     expect(@postman.payload().content.fallback).to.eq @postman.notice()
-    expect(@postman.payload().content.text).to.eq @postman.text()
+    expect(@postman.payload().content.text).to.eq ""
