@@ -1,11 +1,11 @@
 # Description
-#   A hubot script that notify to every time a new error occurs in Airbrake
+#   A hubot script to notify a Hall.com chatroom every time a new error occurs in Airbrake
 #
 # Dependencies:
-#   None
+#   danengle/hubot-hall, danengle/node-hall-client
 #
 # Configuration:
-#   HUBOT_AIRBRAKE_SUBDOMAIN
+#   HALL_ROOM_API_KEY
 #
 # Commands:
 #   None
@@ -17,13 +17,21 @@
 #  https://help.airbrake.io/kb/integrations/webhooks
 #
 # Author:
-#   TAKAHASHI Kazunari[takahashi@1syo.net]
-Postman = require "./postman"
+#   Dan Engle
+
 module.exports = (robot) ->
   robot.router.post "/#{robot.name}/airbrake/:room", (req, res) ->
     try
-      postman = Postman.create(req, robot)
-      postman.notify()
-      res.end "[Airbrake] Sending message"
+      error = req.body.error
+      message_body = "<a href=\"https://catalinamarketing.airbrake.io/projects/#{error.project.id}\">#{error.error_message}</a>"
+      message_body += "<br />Occured <b>#{error.times_occured}</b> time#{if error.times_occured == 1 then '' else 's'}"
+
+      message =
+        title:"[#{error.project.name}] #{error.environment} #{error.error_class}"
+        picture: "https://s3.amazonaws.com/media.catalinamarketing.com/aibrakelogo.png"
+        message: message_body
+
+      robot.send message
+      res.end "[Airbrake] message received"
     catch e
       res.end "[Airbrake] #{e}"
